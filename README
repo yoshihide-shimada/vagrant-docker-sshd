@@ -1,0 +1,33 @@
+This is Vagrantfile for provisioning docker with centos 6.5.
+
+You have to install Vagrant over 1.6 and Virtualbox.
+see http://www.vagrantup.com/
+see https://www.virtualbox.org/wiki/Downloads
+
+1. Get image.
+$ vagrant box add centos_6.5_64 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box
+
+2. Run `vagrant up --provision` in current directory.
+
+3. Try Docker
+You can get in vm the command below.
+$ vagrant ssh
+
+You see docker.
+$ sudo docker -v
+
+4. Try sshd container
+$ sudo docker pull yoshi3/centos_sshd
+$ sudo docker -name sshd -d -p 12345:22 yoshi3/centos_sshd:latest
+
+get ipaddress of sshd container.
+$ sudo docker inspect sshd | grep IPA
+
+$ ssh admin@xxx.xxx.xxx.xxx
+$ password: admin
+
+5. Connect via sshd from client.
+This configure static ip 192.168.33.3 in Vagrantfile.
+$ ssh -p 12345 admin@192.168.33.3
+
+Enjoy!
